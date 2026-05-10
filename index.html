@@ -3,10 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>스페인어 독해 — Los bosques del norte de Canadá</title>
+<title>스페인어 독해 학습</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#2d3748;min-height:100vh}
+
+/* ── PASSAGE BAR ── */
+.passage-bar{background:#1a202c;border-bottom:1px solid #2d3748;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.passage-bar-label{font-size:11px;color:#718096;font-weight:600;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
+#passage-sel{background:#2d3748;color:#e2e8f0;border:1px solid #4a5568;border-radius:7px;padding:5px 10px;font-size:13px;cursor:pointer;outline:none;max-width:420px;width:100%}
+#passage-sel:hover{border-color:#63b3ed}
 
 /* ── NAV ── */
 .tab-nav{display:flex;background:#1a202c;padding:0 16px;overflow-x:auto;white-space:nowrap}
@@ -141,6 +147,11 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#2d3748;min-heig
 </head>
 <body>
 
+<div class="passage-bar">
+  <span class="passage-bar-label">지문</span>
+  <select id="passage-sel" onchange="loadPassage(this.value)"></select>
+</div>
+
 <nav class="tab-nav">
   <button class="tab-btn active" onclick="switchTab('reading',this)">📖 지문 읽기</button>
   <button class="tab-btn" onclick="switchTab('vocab',this)">📚 어휘 목록</button>
@@ -148,126 +159,16 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#2d3748;min-heig
   <button class="tab-btn" onclick="switchTab('quiz',this)">✏️ 퀴즈</button>
 </nav>
 
-<!-- ══════════════════ READING ══════════════════ -->
-<div id="pane-reading" class="tab-pane active">
-<button class="trans-btn" id="trans-btn" onclick="toggleTrans()">🇰🇷 한국어 해석 보기</button>
-<div class="reading-wrap">
-<div class="passage">
-<h2>Los bosques del norte de Canadá</h2>
-<p>
-Los <span class="vw" data-id="bosque">bosques<span class="tip"><span class="tip-word">bosque</span><span class="tip-mean">숲</span><span class="tip-ex">El bosque es muy denso y verde.</span></span></span>
-boreales del norte de Canadá, <span class="vw" data-id="tambienconocidocomo">también conocidos como<span class="tip"><span class="tip-word">también conocido como</span><span class="tip-mean">~로도 알려진</span><span class="tip-ex">Es también conocido como "el pulmón del mundo".</span></span></span>
-la taiga, <span class="vw" data-id="constituir">constituyen<span class="tip"><span class="tip-word">constituir</span><span class="tip-mean">구성하다</span><span class="tip-ex">Estos elementos constituyen el sistema.</span></span></span>
-uno de los <span class="vw" data-id="ecosistema">ecosistemas<span class="tip"><span class="tip-word">ecosistema</span><span class="tip-mean">생태계</span><span class="tip-ex">El ecosistema marino está en peligro.</span></span></span>
-más <span class="vw" data-id="extenso">extensos<span class="tip"><span class="tip-word">extenso</span><span class="tip-mean">광대한</span><span class="tip-ex">Es un territorio muy extenso.</span></span></span>
-del planeta. Estos <span class="vw" data-id="vasto">vastos<span class="tip"><span class="tip-word">vasto</span><span class="tip-mean">드넓은</span><span class="tip-ex">Vivían en vastas praderas.</span></span></span>
-territorios <span class="vw" data-id="albergar">albergan<span class="tip"><span class="tip-word">albergar</span><span class="tip-mean">품다, 수용하다</span><span class="tip-ex">Este refugio alberga cien animales.</span></span></span>
-una <span class="vw" data-id="biodiversidad">biodiversidad<span class="tip"><span class="tip-word">biodiversidad</span><span class="tip-mean">생물다양성</span><span class="tip-ex">La biodiversidad del Amazonas es única.</span></span></span>
-<span class="vw" data-id="extraordinario">extraordinaria<span class="tip"><span class="tip-word">extraordinario</span><span class="tip-mean">특별한, 놀라운</span><span class="tip-ex">Tuvo un talento extraordinario.</span></span></span>,
-donde <span class="vw" data-id="convivir">conviven<span class="tip"><span class="tip-word">convivir</span><span class="tip-mean">공존하다</span><span class="tip-ex">Distintas culturas conviven en armonía.</span></span></span>
-especies animales y vegetales que han logrado <span class="vw" data-id="adaptarse">adaptarse<span class="tip"><span class="tip-word">adaptarse</span><span class="tip-mean">적응하다</span><span class="tip-ex">Los animales se adaptan al entorno.</span></span></span>
-a las condiciones climáticas extremas de la región.
-</p>
-<div class="kr-p">캐나다 북부의 보레알 숲은 타이가라고도 알려져 있으며, 지구에서 가장 넓은 생태계 중 하나를 구성합니다. 이 드넓은 영토는 놀라운 생물다양성을 품고 있으며, 이 지역의 극한 기후 조건에 적응한 동물·식물 종들이 공존합니다.</div>
-<p>
-El <span class="vw" data-id="clima">clima<span class="tip"><span class="tip-word">clima</span><span class="tip-mean">기후</span><span class="tip-ex">El clima tropical es cálido y húmedo.</span></span></span>
-de estas zonas <span class="vw" data-id="secaracterizapor">se caracteriza por<span class="tip"><span class="tip-word">se caracteriza por</span><span class="tip-mean">~를 특징으로 하다</span><span class="tip-ex">Esta región se caracteriza por sus lluvias.</span></span></span>
-<span class="vw" data-id="invierno">inviernos<span class="tip"><span class="tip-word">invierno</span><span class="tip-mean">겨울</span><span class="tip-ex">El invierno aquí dura seis meses.</span></span></span>
-<span class="vw" data-id="prolongado">prolongados<span class="tip"><span class="tip-word">prolongado</span><span class="tip-mean">길어진, 오랜</span><span class="tip-ex">Sufrió una enfermedad prolongada.</span></span></span>
-y <span class="vw" data-id="verano">veranos<span class="tip"><span class="tip-word">verano</span><span class="tip-mean">여름</span><span class="tip-ex">En verano hace mucho calor.</span></span></span>
-<span class="vw" data-id="breve">breves<span class="tip"><span class="tip-word">breve</span><span class="tip-mean">짧은</span><span class="tip-ex">Fue una visita muy breve.</span></span></span>
-pero intensos. Las <span class="vw" data-id="temperatura">temperaturas<span class="tip"><span class="tip-word">temperatura</span><span class="tip-mean">온도, 기온</span><span class="tip-ex">La temperatura bajó mucho anoche.</span></span></span>
-pueden <span class="vw" data-id="descender">descender<span class="tip"><span class="tip-word">descender</span><span class="tip-mean">내려가다</span><span class="tip-ex">La temperatura desciende en diciembre.</span></span></span>
-hasta los cuarenta grados bajo cero durante los meses más fríos, mientras que en verano el mercurio
-<span class="vw" data-id="ascender">asciende<span class="tip"><span class="tip-word">ascender</span><span class="tip-mean">올라가다</span><span class="tip-ex">El mercurio asciende en verano.</span></span></span>
-moderadamente. Esta variación térmica tan <span class="vw" data-id="pronunciado">pronunciada<span class="tip"><span class="tip-word">pronunciado</span><span class="tip-mean">뚜렷한, 심한</span><span class="tip-ex">Hay una diferencia muy pronunciada.</span></span></span>
-<span class="vw" data-id="exigir">exige<span class="tip"><span class="tip-word">exigir</span><span class="tip-mean">요구하다</span><span class="tip-ex">El trabajo exige mucha dedicación.</span></span></span>
-que <span class="vw" data-id="tantocomo">tanto<span class="tip"><span class="tip-word">tanto...como</span><span class="tip-mean">~뿐만 아니라 ~도</span><span class="tip-ex">Tanto los animales como las plantas necesitan agua.</span></span></span>
-la <span class="vw" data-id="flora">flora<span class="tip"><span class="tip-word">flora</span><span class="tip-mean">식물군</span><span class="tip-ex">La flora mediterránea es muy diversa.</span></span></span>
-como la <span class="vw" data-id="fauna">fauna<span class="tip"><span class="tip-word">fauna</span><span class="tip-mean">동물군</span><span class="tip-ex">La fauna australiana incluye el canguro.</span></span></span>
-<span class="vw" data-id="desarrollar">desarrollen<span class="tip"><span class="tip-word">desarrollar</span><span class="tip-mean">발전시키다</span><span class="tip-ex">Necesitamos desarrollar nuevas habilidades.</span></span></span>
-mecanismos de <span class="vw" data-id="supervivencia">supervivencia<span class="tip"><span class="tip-word">supervivencia</span><span class="tip-mean">생존</span><span class="tip-ex">Los instintos de supervivencia son fuertes.</span></span></span> únicos.
-</p>
-<div class="kr-p">이 지역의 기후는 길고 추운 겨울과 짧지만 강렬한 여름을 특징으로 합니다. 가장 추운 달에는 기온이 영하 40도까지 내려갈 수 있으며, 여름에는 수은주가 적당히 올라갑니다. 이처럼 뚜렷한 온도 변화는 식물군과 동물군 모두가 독특한 생존 메커니즘을 발전시킬 것을 요구합니다.</div>
-<p>
-Entre los <span class="vw" data-id="arbol">árboles<span class="tip"><span class="tip-word">árbol</span><span class="tip-mean">나무</span><span class="tip-ex">Ese árbol tiene cien años de antigüedad.</span></span></span>
-predominantes se encuentran el <span class="vw" data-id="abeto">abeto<span class="tip"><span class="tip-word">abeto</span><span class="tip-mean">전나무</span><span class="tip-ex">El abeto es símbolo de la Navidad.</span></span></span>,
-el <span class="vw" data-id="pino">pino<span class="tip"><span class="tip-word">pino</span><span class="tip-mean">소나무</span><span class="tip-ex">El bosque huele a pino.</span></span></span>
-y el <span class="vw" data-id="abedul">abedul<span class="tip"><span class="tip-word">abedul</span><span class="tip-mean">자작나무</span><span class="tip-ex">El abedul tiene la corteza de color blanco.</span></span></span>.
-Estos árboles robustos han evolucionado para <span class="vw" data-id="soportar">soportar<span class="tip"><span class="tip-word">soportar</span><span class="tip-mean">견디다, 지탱하다</span><span class="tip-ex">No puedo soportar el calor extremo.</span></span></span>
-el peso de la nieve y <span class="vw" data-id="sobrevivir">sobrevivir<span class="tip"><span class="tip-word">sobrevivir</span><span class="tip-mean">생존하다</span><span class="tip-ex">Sobrevivió al grave accidente.</span></span></span>
-con escasa luz solar durante el invierno. Sus <span class="vw" data-id="raiz">raíces<span class="tip"><span class="tip-word">raíz</span><span class="tip-mean">뿌리</span><span class="tip-ex">Las raíces del árbol son muy profundas.</span></span></span>
-<span class="vw" data-id="superficial">superficiales<span class="tip"><span class="tip-word">superficial</span><span class="tip-mean">표면의, 얕은</span><span class="tip-ex">Tiene un conocimiento superficial del tema.</span></span></span>
-se <span class="vw" data-id="extenderse">extienden<span class="tip"><span class="tip-word">extenderse</span><span class="tip-mean">뻗어나가다</span><span class="tip-ex">El desierto se extiende por kilómetros.</span></span></span>
-horizontalmente para <span class="vw" data-id="aprovechar">aprovechar<span class="tip"><span class="tip-word">aprovechar</span><span class="tip-mean">활용하다, 이용하다</span><span class="tip-ex">Hay que aprovechar las oportunidades.</span></span></span>
-los nutrientes disponibles en el <span class="vw" data-id="suelo">suelo<span class="tip"><span class="tip-word">suelo</span><span class="tip-mean">토양, 땅</span><span class="tip-ex">El suelo fértil es ideal para cultivar.</span></span></span>
-delgado y frecuentemente <span class="vw" data-id="helado">helado<span class="tip"><span class="tip-word">helado</span><span class="tip-mean">얼어붙은</span><span class="tip-ex">El suelo estaba completamente helado.</span></span></span>.
-</p>
-<div class="kr-p">주요 나무로는 전나무, 소나무, 자작나무가 있습니다. 이 튼튼한 나무들은 눈의 무게를 견디고 겨울 동안 일조량이 부족해도 생존하도록 진화했습니다. 이들의 얕은 뿌리는 얇고 자주 얼어붙는 토양에서 영양분을 활용하기 위해 수평으로 뻗어 있습니다.</div>
-<p>
-La fauna de la taiga canadiense es igualmente fascinante. El
-<span class="vw" data-id="alce">alce<span class="tip"><span class="tip-word">alce</span><span class="tip-mean">엘크(큰사슴)</span><span class="tip-ex">El alce es el animal más grande del bosque.</span></span></span>,
-el <span class="vw" data-id="oso">oso<span class="tip"><span class="tip-word">oso</span><span class="tip-mean">곰</span><span class="tip-ex">El oso hiberna durante el invierno.</span></span></span>
-negro y el <span class="vw" data-id="lobo">lobo<span class="tip"><span class="tip-word">lobo</span><span class="tip-mean">늑대</span><span class="tip-ex">El lobo vive y caza en manada.</span></span></span>
-gris son depredadores y herbívoros que comparten este hábitat. Aves
-<span class="vw" data-id="migratorio">migratorias<span class="tip"><span class="tip-word">migratorio</span><span class="tip-mean">이동하는, 철새의</span><span class="tip-ex">Las aves migratorias llegan en primavera.</span></span></span>
-como el ganso canadiense <span class="vw" data-id="atravesar">atraviesan<span class="tip"><span class="tip-word">atravesar</span><span class="tip-mean">가로지르다</span><span class="tip-ex">Atravesamos el desierto en coche.</span></span></span>
-estos bosques durante sus viajes estacionales. Además, mamíferos pequeños como la
-<span class="vw" data-id="ardilla">ardilla<span class="tip"><span class="tip-word">ardilla</span><span class="tip-mean">다람쥐</span><span class="tip-ex">La ardilla guarda nueces para el invierno.</span></span></span>
-roja y el <span class="vw" data-id="castor">castor<span class="tip"><span class="tip-word">castor</span><span class="tip-mean">비버</span><span class="tip-ex">El castor construye diques en el río.</span></span></span>
-<span class="vw" data-id="desempenar">desempeñan<span class="tip"><span class="tip-word">desempeñar</span><span class="tip-mean">수행하다, 맡다</span><span class="tip-ex">Desempeña un papel importante en el equipo.</span></span></span>
-un papel crucial en el mantenimiento del equilibrio ecológico.
-</p>
-<div class="kr-p">캐나다 타이가의 동물군도 마찬가지로 매혹적입니다. 엘크, 흑곰, 회색 늑대는 이 서식지를 공유하는 포식자이자 초식동물입니다. 캐나다 기러기 같은 철새들은 계절 이동 중에 이 숲을 가로지릅니다. 또한 붉은 다람쥐와 비버 같은 소형 포유류들은 생태계 균형 유지에 중요한 역할을 담당합니다.</div>
-<p>
-<span class="vw" data-id="sinembargo">Sin embargo<span class="tip"><span class="tip-word">sin embargo</span><span class="tip-mean">그러나, 하지만</span><span class="tip-ex">Estudié mucho; sin embargo, no aprobé.</span></span></span>,
-estos ecosistemas <span class="vw" data-id="enfrentar">enfrentan<span class="tip"><span class="tip-word">enfrentar</span><span class="tip-mean">직면하다</span><span class="tip-ex">Debemos enfrentar los desafíos del futuro.</span></span></span>
-<span class="vw" data-id="amenaza">amenazas<span class="tip"><span class="tip-word">amenaza</span><span class="tip-mean">위협</span><span class="tip-ex">El cambio climático es una gran amenaza.</span></span></span>
-crecientes <span class="vw" data-id="debidoa">debido a<span class="tip"><span class="tip-word">debido a</span><span class="tip-mean">~ 때문에</span><span class="tip-ex">Debido a la lluvia, cancelamos el picnic.</span></span></span>
-al cambio climático y la <span class="vw" data-id="deforestacion">deforestación<span class="tip"><span class="tip-word">deforestación</span><span class="tip-mean">삼림 벌채</span><span class="tip-ex">La deforestación destruye los ecosistemas.</span></span></span>.
-El aumento de las temperaturas provoca el deshielo del
-<span class="vw" data-id="permafrost">permafrost<span class="tip"><span class="tip-word">permafrost</span><span class="tip-mean">영구 동토층</span><span class="tip-ex">El permafrost se derrite por el calentamiento global.</span></span></span>,
-alterando los patrones hidrológicos de la región. La explotación maderera también ha reducido considerablemente la extensión de estos bosques,
-<span class="vw" data-id="poniendoenriesgo">poniendo en riesgo<span class="tip"><span class="tip-word">poniendo en riesgo</span><span class="tip-mean">위험에 빠뜨리면서</span><span class="tip-ex">Su decisión está poniendo en riesgo a la empresa.</span></span></span>
-la supervivencia de numerosas especies.
-</p>
-<div class="kr-p">그러나 이 생태계들은 기후변화와 삼림 벌채로 인해 점점 커지는 위협에 직면하고 있습니다. 기온 상승은 영구 동토층의 해빙을 유발하여 이 지역의 수문학적 패턴을 변화시킵니다. 목재 채취 역시 이 숲의 범위를 상당히 줄여 수많은 종들의 생존을 위험에 빠뜨리고 있습니다.</div>
-<p>
-Las <span class="vw" data-id="comunidad">comunidades<span class="tip"><span class="tip-word">comunidad</span><span class="tip-mean">공동체</span><span class="tip-ex">La comunidad se unió para ayudar.</span></span></span>
-indígenas que habitan estas regiones
-<span class="vw" data-id="desdetiemposancestrales">desde tiempos ancestrales<span class="tip"><span class="tip-word">desde tiempos ancestrales</span><span class="tip-mean">먼 옛날부터</span><span class="tip-ex">Esta tradición existe desde tiempos ancestrales.</span></span></span>
-han desarrollado una relación profunda con el bosque. Sus conocimientos tradicionales sobre la flora y la fauna locales resultan
-<span class="vw" data-id="invaluable">invaluables<span class="tip"><span class="tip-word">invaluable</span><span class="tip-mean">매우 귀중한</span><span class="tip-ex">Su experiencia es invaluable para el equipo.</span></span></span>
-para la conservación del medio ambiente. Actualmente, muchos proyectos de investigación colaboran con estas comunidades para
-<span class="vw" data-id="preservar">preservar<span class="tip"><span class="tip-word">preservar</span><span class="tip-mean">보존하다</span><span class="tip-ex">Debemos preservar el medio ambiente.</span></span></span>
-tanto el <span class="vw" data-id="patrimonio">patrimonio<span class="tip"><span class="tip-word">patrimonio</span><span class="tip-mean">유산</span><span class="tip-ex">Este lugar es patrimonio de la humanidad.</span></span></span>
-cultural como el natural.
-</p>
-<div class="kr-p">먼 옛날부터 이 지역에 거주해 온 원주민 공동체들은 숲과 깊은 관계를 발전시켜 왔습니다. 지역 동식물에 관한 그들의 전통 지식은 환경 보전에 매우 귀중합니다. 현재 많은 연구 프로젝트들이 문화적 유산과 자연 유산을 모두 보존하기 위해 이 공동체들과 협력하고 있습니다.</div>
-</div>
-<div class="notepad">
-  <div class="notepad-head">
-    <span class="notepad-title">📝 메모장</span>
-    <button class="notepad-clear" onclick="clearNotes()">전체 지우기</button>
-  </div>
-  <textarea id="notepad-ta" placeholder="여기에 메모를 작성하세요&#10;&#10;예) 외울 단어, 문장 분석, 궁금한 점..." oninput="saveNotes()"></textarea>
-</div>
-</div>
-</div>
+<!-- READING -->
+<div id="pane-reading" class="tab-pane active"></div>
 
-<!-- ══════════════════ VOCAB ══════════════════ -->
+<!-- VOCAB -->
 <div id="pane-vocab" class="tab-pane">
-  <div class="filter-row">
-    <button class="fbtn all on" onclick="filterV('all',this)">전체</button>
-    <button class="fbtn noun" onclick="filterV('noun',this)">명사 26</button>
-    <button class="fbtn adj" onclick="filterV('adj',this)">형용사 11</button>
-    <button class="fbtn verb" onclick="filterV('verb',this)">동사 17</button>
-    <button class="fbtn expr" onclick="filterV('expr',this)">표현 7</button>
-  </div>
+  <div class="filter-row" id="filter-row"></div>
   <div class="vgrid" id="vgrid"></div>
 </div>
 
-<!-- ══════════════════ FLASHCARD ══════════════════ -->
+<!-- FLASHCARD -->
 <div id="pane-flash" class="tab-pane">
   <div class="fc-ctrl">
     <select class="fc-sel" id="fc-type" onchange="initFC()">
@@ -311,7 +212,7 @@ cultural como el natural.
   </div>
 </div>
 
-<!-- ══════════════════ QUIZ ══════════════════ -->
+<!-- QUIZ -->
 <div id="pane-quiz" class="tab-pane">
   <div class="quiz-top">
     <h2>✏️ 스페인어 퀴즈</h2>
@@ -326,85 +227,208 @@ cultural como el natural.
   </div>
 </div>
 
+<script src="passage_01.js"></script>
+<script src="passage_02.js"></script>
 <script>
 // ═══════════════════════════════════════════════════════════════
-// VOCAB DATA
+// PASSAGE REGISTRY
 // ═══════════════════════════════════════════════════════════════
-const V = [
-  // NOUNS
-  {id:'bosque',       t:'noun', w:'bosque',        m:'숲',           ee:'El bosque es muy denso y verde.',               ek:'그 숲은 매우 울창하고 초록빛이다.',         ant:'desierto (사막)',         frm:'bosques (복수)'},
-  {id:'ecosistema',   t:'noun', w:'ecosistema',     m:'생태계',        ee:'El ecosistema marino está en peligro.',         ek:'해양 생태계가 위기에 처해 있다.',           ant:'-',                       frm:'ecosistemas (복수)'},
-  {id:'biodiversidad',t:'noun', w:'biodiversidad',  m:'생물다양성',    ee:'La biodiversidad del Amazonas es única.',       ek:'아마존의 생물다양성은 독특하다.',           ant:'-',                       frm:'-'},
-  {id:'clima',        t:'noun', w:'clima',          m:'기후',          ee:'El clima tropical es cálido y húmedo.',         ek:'열대 기후는 따뜻하고 습하다.',             ant:'-',                       frm:'climas (복수)'},
-  {id:'temperatura',  t:'noun', w:'temperatura',    m:'온도, 기온',    ee:'La temperatura bajó mucho anoche.',             ek:'어젯밤 기온이 많이 내려갔다.',             ant:'-',                       frm:'temperaturas (복수)'},
-  {id:'invierno',     t:'noun', w:'invierno',       m:'겨울',          ee:'El invierno aquí dura seis meses.',             ek:'이곳의 겨울은 6개월 동안 계속된다.',       ant:'verano (여름)',            frm:'inviernos (복수)'},
-  {id:'verano',       t:'noun', w:'verano',         m:'여름',          ee:'En verano hace mucho calor.',                   ek:'여름에는 매우 덥다.',                       ant:'invierno (겨울)',          frm:'veranos (복수)'},
-  {id:'flora',        t:'noun', w:'flora',          m:'식물군',        ee:'La flora mediterránea es muy diversa.',         ek:'지중해 식물군은 매우 다양하다.',           ant:'fauna (동물군)',           frm:'-'},
-  {id:'fauna',        t:'noun', w:'fauna',          m:'동물군',        ee:'La fauna australiana incluye el canguro.',      ek:'호주 동물군에는 캥거루가 포함된다.',       ant:'flora (식물군)',           frm:'-'},
-  {id:'arbol',        t:'noun', w:'árbol',          m:'나무',          ee:'Ese árbol tiene cien años de antigüedad.',      ek:'저 나무는 수령이 100년이다.',               ant:'-',                       frm:'árboles (복수)'},
-  {id:'abeto',        t:'noun', w:'abeto',          m:'전나무',        ee:'El abeto es símbolo de la Navidad.',            ek:'전나무는 크리스마스의 상징이다.',           ant:'-',                       frm:'abetos (복수)'},
-  {id:'pino',         t:'noun', w:'pino',           m:'소나무',        ee:'El bosque huele a pino.',                       ek:'숲에서 소나무 향기가 난다.',               ant:'-',                       frm:'pinos (복수)'},
-  {id:'abedul',       t:'noun', w:'abedul',         m:'자작나무',      ee:'El abedul tiene la corteza de color blanco.',   ek:'자작나무는 흰색 껍질을 가지고 있다.',     ant:'-',                       frm:'abedules (복수)'},
-  {id:'raiz',         t:'noun', w:'raíz',           m:'뿌리',          ee:'Las raíces del árbol son muy profundas.',       ek:'나무의 뿌리는 매우 깊다.',                 ant:'-',                       frm:'raíces (복수)'},
-  {id:'suelo',        t:'noun', w:'suelo',          m:'토양, 땅',      ee:'El suelo fértil es ideal para cultivar.',       ek:'비옥한 토양은 농사짓기에 이상적이다.',     ant:'cielo (하늘)',             frm:'suelos (복수)'},
-  {id:'alce',         t:'noun', w:'alce',           m:'엘크(큰사슴)', ee:'El alce es el animal más grande del bosque.',   ek:'엘크는 숲에서 가장 큰 동물이다.',         ant:'-',                       frm:'alces (복수)'},
-  {id:'lobo',         t:'noun', w:'lobo',           m:'늑대',          ee:'El lobo vive y caza en manada.',                ek:'늑대는 무리를 지어 살고 사냥한다.',       ant:'-',                       frm:'lobos (복수)'},
-  {id:'oso',          t:'noun', w:'oso',            m:'곰',            ee:'El oso hiberna durante el invierno.',           ek:'곰은 겨울 동안 동면한다.',                 ant:'-',                       frm:'osos (복수)'},
-  {id:'ardilla',      t:'noun', w:'ardilla',        m:'다람쥐',        ee:'La ardilla guarda nueces para el invierno.',    ek:'다람쥐는 겨울을 위해 도토리를 모은다.',   ant:'-',                       frm:'ardillas (복수)'},
-  {id:'castor',       t:'noun', w:'castor',         m:'비버',          ee:'El castor construye diques en el río.',         ek:'비버는 강에 댐을 만든다.',                 ant:'-',                       frm:'castores (복수)'},
-  {id:'amenaza',      t:'noun', w:'amenaza',        m:'위협',          ee:'El cambio climático es una gran amenaza.',      ek:'기후변화는 큰 위협이다.',                   ant:'protección (보호)',        frm:'amenazas (복수)'},
-  {id:'deforestacion',t:'noun', w:'deforestación',  m:'삼림 벌채',     ee:'La deforestación destruye los ecosistemas.',   ek:'삼림 벌채는 생태계를 파괴한다.',           ant:'reforestación (재조림)',   frm:'-'},
-  {id:'permafrost',   t:'noun', w:'permafrost',     m:'영구 동토층',   ee:'El permafrost se derrite por el calor.',        ek:'영구 동토층이 온난화로 녹고 있다.',       ant:'-',                       frm:'-'},
-  {id:'comunidad',    t:'noun', w:'comunidad',      m:'공동체',        ee:'La comunidad se unió para ayudar.',             ek:'공동체가 힘을 합쳐 도왔다.',               ant:'individuo (개인)',         frm:'comunidades (복수)'},
-  {id:'patrimonio',   t:'noun', w:'patrimonio',     m:'유산',          ee:'Este lugar es patrimonio de la humanidad.',     ek:'이 장소는 인류의 유산이다.',               ant:'-',                       frm:'patrimonios (복수)'},
-  {id:'supervivencia',t:'noun', w:'supervivencia',  m:'생존',          ee:'Los instintos de supervivencia son fuertes.',  ek:'생존 본능은 강하다.',                       ant:'extinción (멸종)',         frm:'-'},
-  // ADJECTIVES
-  {id:'extenso',      t:'adj',  w:'extenso',        m:'광대한',        ee:'Es un territorio muy extenso.',                ek:'그것은 매우 광대한 영토이다.',             ant:'reducido (좁은)',          frm:'extensa / extensos / extensas'},
-  {id:'vasto',        t:'adj',  w:'vasto',          m:'드넓은',        ee:'Vivían en vastas llanuras.',                    ek:'그들은 드넓은 평원에서 살았다.',           ant:'reducido (좁은)',          frm:'vasta / vastos / vastas'},
-  {id:'extraordinario',t:'adj', w:'extraordinario', m:'특별한, 놀라운', ee:'Tuvo un talento extraordinario.',              ek:'그는 놀라운 재능을 가졌다.',               ant:'ordinario (평범한)',       frm:'extraordinaria / extraordinarios'},
-  {id:'prolongado',   t:'adj',  w:'prolongado',     m:'길어진, 오랜',  ee:'Sufrió una enfermedad prolongada.',             ek:'그는 오랜 병을 앓았다.',                   ant:'breve (짧은)',             frm:'prolongada / prolongados'},
-  {id:'breve',        t:'adj',  w:'breve',          m:'짧은',          ee:'Fue una visita muy breve.',                     ek:'그것은 매우 짧은 방문이었다.',             ant:'prolongado (오랜)',        frm:'breve / breves'},
-  {id:'pronunciado',  t:'adj',  w:'pronunciado',    m:'뚜렷한, 심한',  ee:'Hay una diferencia muy pronunciada.',           ek:'매우 뚜렷한 차이가 있다.',                 ant:'leve (약한)',              frm:'pronunciada / pronunciados'},
-  {id:'superficial',  t:'adj',  w:'superficial',    m:'표면의, 얕은',  ee:'Tiene un conocimiento superficial del tema.',   ek:'그는 그 주제에 대한 얕은 지식을 갖고 있다.',ant:'profundo (깊은)',         frm:'superficial / superficiales'},
-  {id:'helado',       t:'adj',  w:'helado',         m:'얼어붙은',      ee:'El suelo estaba completamente helado.',         ek:'땅이 완전히 얼어붙어 있었다.',             ant:'derretido (녹은)',         frm:'helada / helados / heladas'},
-  {id:'migratorio',   t:'adj',  w:'migratorio',     m:'이동하는, 철새의',ee:'Las aves migratorias llegan en primavera.',   ek:'철새들이 봄에 도착한다.',                 ant:'sedentario (정착성)',      frm:'migratoria / migratorios'},
-  {id:'ancestral',    t:'adj',  w:'ancestral',      m:'조상의',        ee:'Mantienen sus costumbres ancestrales.',         ek:'그들은 조상의 풍습을 유지하고 있다.',     ant:'moderno (현대의)',         frm:'ancestral / ancestrales'},
-  {id:'invaluable',   t:'adj',  w:'invaluable',     m:'매우 귀중한',   ee:'Su experiencia es invaluable para el equipo.',  ek:'그의 경험은 팀에 매우 귀중하다.',         ant:'-',                       frm:'invaluable / invaluables'},
-  // VERBS
-  {id:'constituir',   t:'verb', w:'constituir',     m:'구성하다',      ee:'Estos elementos constituyen el sistema.',       ek:'이 요소들이 시스템을 구성한다.',           ant:'disolver (해체하다)',      frm:'constituyo, constituyes, constituye'},
-  {id:'albergar',     t:'verb', w:'albergar',       m:'품다, 수용하다', ee:'Este refugio alberga cien animales.',           ek:'이 보호구역은 100마리 동물을 수용한다.',  ant:'expulsar (쫓아내다)',      frm:'albergo, albergas, alberga'},
-  {id:'convivir',     t:'verb', w:'convivir',       m:'공존하다',      ee:'Distintas culturas conviven en esta ciudad.',   ek:'다양한 문화가 이 도시에서 공존한다.',     ant:'competir (경쟁하다)',      frm:'convivo, convives, convive'},
-  {id:'adaptarse',    t:'verb', w:'adaptarse',      m:'적응하다',      ee:'Los animales se adaptan al entorno.',           ek:'동물들은 환경에 적응한다.',               ant:'-',                       frm:'me adapto, te adaptas, se adapta'},
-  {id:'secaracterizapor',t:'verb',w:'caracterizarse',m:'특징지어지다', ee:'La región se caracteriza por el frío.',         ek:'그 지역은 추위로 특징지어진다.',           ant:'-',                       frm:'se caracteriza, se caracterizan'},
-  {id:'descender',    t:'verb', w:'descender',      m:'내려가다',      ee:'La temperatura desciende en diciembre.',        ek:'기온이 12월에 내려간다.',                 ant:'ascender (올라가다)',      frm:'desciendo, desciendes, desciende'},
-  {id:'ascender',     t:'verb', w:'ascender',       m:'올라가다',      ee:'El mercurio asciende en verano.',               ek:'여름에 수은주가 올라간다.',               ant:'descender (내려가다)',     frm:'asciendo, asciendes, asciende'},
-  {id:'exigir',       t:'verb', w:'exigir',         m:'요구하다',      ee:'El trabajo exige mucha dedicación.',            ek:'그 일은 많은 헌신을 요구한다.',           ant:'-',                       frm:'exijo, exiges, exige'},
-  {id:'desarrollar',  t:'verb', w:'desarrollar',    m:'발전시키다',    ee:'Necesitamos desarrollar nuevas habilidades.',   ek:'우리는 새로운 능력을 발전시켜야 한다.',   ant:'-',                       frm:'desarrollo, desarrollas, desarrolla'},
-  {id:'soportar',     t:'verb', w:'soportar',       m:'견디다, 지탱하다',ee:'No puedo soportar el calor extremo.',         ek:'나는 극한의 더위를 견딜 수 없다.',       ant:'-',                       frm:'soporto, soportas, soporta'},
-  {id:'sobrevivir',   t:'verb', w:'sobrevivir',     m:'생존하다',      ee:'Sobrevivió al grave accidente.',                ek:'그는 심각한 사고에서 살아남았다.',         ant:'morir (죽다)',             frm:'sobrevivo, sobrevives, sobrevive'},
-  {id:'extenderse',   t:'verb', w:'extenderse',     m:'뻗어나가다',    ee:'El desierto se extiende por kilómetros.',       ek:'사막이 수 킬로미터에 걸쳐 뻗어 있다.',   ant:'reducirse (줄어들다)',     frm:'se extiende, se extienden'},
-  {id:'aprovechar',   t:'verb', w:'aprovechar',     m:'활용하다',      ee:'Hay que aprovechar el tiempo libre.',           ek:'자유 시간을 잘 활용해야 한다.',           ant:'desperdiciar (낭비하다)',  frm:'aprovecho, aprovechas, aprovecha'},
-  {id:'atravesar',    t:'verb', w:'atravesar',      m:'가로지르다',    ee:'Atravesamos el desierto en coche.',             ek:'우리는 차로 사막을 가로질렀다.',           ant:'-',                       frm:'atravieso, atraviesas, atraviesa'},
-  {id:'desempenar',   t:'verb', w:'desempeñar',     m:'수행하다, 맡다', ee:'Desempeña un papel importante en el equipo.',  ek:'그는 팀에서 중요한 역할을 맡고 있다.',   ant:'-',                       frm:'desempeño, desempeñas, desempeña'},
-  {id:'enfrentar',    t:'verb', w:'enfrentar',      m:'직면하다',      ee:'Debemos enfrentar los desafíos del futuro.',    ek:'우리는 미래의 도전에 직면해야 한다.',     ant:'evitar (피하다)',          frm:'enfrento, enfrentas, enfrenta'},
-  {id:'preservar',    t:'verb', w:'preservar',      m:'보존하다',      ee:'Debemos preservar el medio ambiente.',          ek:'우리는 환경을 보존해야 한다.',             ant:'destruir (파괴하다)',      frm:'preservo, preservas, preserva'},
-  // EXPRESSIONS
-  {id:'tambienconocidocomo',t:'expr',w:'también conocido como',m:'~로도 알려진',      ee:'Este lugar, también conocido como "El Paraíso", es precioso.',ek:'"낙원"으로도 알려진 이 장소는 아름답다.',ant:'-',frm:'-'},
-  {id:'secaracterizapor2',  t:'expr',w:'se caracteriza por',   m:'~를 특징으로 하다', ee:'Esta región se caracteriza por sus bosques densos.',          ek:'이 지역은 울창한 숲을 특징으로 한다.',  ant:'-',frm:'-'},
-  {id:'tantocomo',          t:'expr',w:'tanto...como',         m:'~뿐만 아니라 ~도',  ee:'Tanto los animales como las plantas necesitan agua.',          ek:'동물뿐만 아니라 식물도 물이 필요하다.',ant:'-',frm:'-'},
-  {id:'sinembargo',         t:'expr',w:'sin embargo',          m:'그러나, 하지만',     ee:'Estudié mucho; sin embargo, no aprobé.',                      ek:'열심히 공부했다; 하지만 합격하지 못했다.',ant:'por lo tanto (따라서)',frm:'-'},
-  {id:'debidoa',            t:'expr',w:'debido a',             m:'~ 때문에',           ee:'Debido a la lluvia, cancelamos el picnic.',                   ek:'비 때문에 소풍을 취소했다.',           ant:'a pesar de (~에도 불구하고)',frm:'-'},
-  {id:'poniendoenriesgo',   t:'expr',w:'poniendo en riesgo',   m:'위험에 빠뜨리면서',  ee:'Su decisión está poniendo en riesgo a la empresa.',           ek:'그의 결정이 회사를 위험에 빠뜨리고 있다.',ant:'-',frm:'-'},
-  {id:'desdetiemposancestrales',t:'expr',w:'desde tiempos ancestrales',m:'먼 옛날부터',ee:'Desde tiempos ancestrales, esta tierra fue sagrada.',        ek:'먼 옛날부터 이 땅은 신성시되었다.',    ant:'-',frm:'-'},
-];
+const PASSAGES = [PASSAGE_01, PASSAGE_02];
+let currentPassage = PASSAGES[0];
 
 const TL = {noun:'명사', adj:'형용사', verb:'동사', expr:'표현'};
 const TB = {noun:'N', adj:'Adj', verb:'V', expr:'Expr'};
 
 // ═══════════════════════════════════════════════════════════════
+// AUTO-ANNOTATION ENGINE
+// ═══════════════════════════════════════════════════════════════
+function normW(s) {
+  return s.toLowerCase()
+    .replace(/[áàä]/g,'a').replace(/[éèë]/g,'e')
+    .replace(/[íìï]/g,'i').replace(/[óòö]/g,'o')
+    .replace(/[úùü]/g,'u').replace(/ñ/g,'n');
+}
+
+function buildVocabLookup(vocab) {
+  const map = new Map();
+
+  function add(surface, item) {
+    const k = normW(surface.toLowerCase().trim());
+    if (k && !map.has(k)) map.set(k, item);
+  }
+
+  for (const v of vocab) {
+    if (v.t === 'expr') continue;
+
+    // Handle 'rico/a' format — use first variant as base
+    const w = v.w.split('/')[0].toLowerCase().trim();
+    add(w, v);
+
+    if (v.t === 'noun') {
+      if (w.endsWith('z')) {
+        add(w.slice(0,-1) + 'ces', v);
+      } else if (/[bcdfghjklmnñpqrstvwxyz]$/.test(w)) {
+        add(w + 'es', v);
+        add(w + 's', v);
+      } else {
+        add(w + 's', v);
+      }
+    }
+
+    if (v.t === 'adj') {
+      if (w.endsWith('o')) {
+        add(w.slice(0,-1) + 'a', v);
+        add(w + 's', v);
+        add(w.slice(0,-1) + 'as', v);
+      } else if (w.endsWith('or')) {
+        add(w + 'a', v); add(w + 'es', v); add(w + 'as', v);
+      } else {
+        add(w + 'es', v);
+        add(w + 's', v);
+      }
+    }
+
+    if (v.t === 'verb') {
+      const inf = w.endsWith('se') ? w.slice(0,-2) : w;
+      const ending = inf.slice(-2);
+      const stem = inf.slice(0,-2);
+      add(inf, v);
+
+      if (ending === 'ar') {
+        ['o','as','a','amos','áis','an',
+         'aba','abas','ábamos','abais','aban',
+         'é','aste','ó','asteis','aron',
+         'ando'].forEach(s => add(stem+s, v));
+        add(stem+'ado', v); add(stem+'ada', v);
+        add(stem+'ados', v); add(stem+'adas', v);
+      } else if (ending === 'er') {
+        ['o','es','e','emos','éis','en',
+         'ía','ías','íamos','íais','ían',
+         'í','iste','ió','imos','isteis','ieron',
+         'iendo'].forEach(s => add(stem+s, v));
+        add(stem+'ido', v); add(stem+'ida', v);
+        add(stem+'idos', v); add(stem+'idas', v);
+      } else if (ending === 'ir') {
+        ['o','es','e','imos','ís','en',
+         'ía','ías','íamos','íais','ían',
+         'í','iste','ió','isteis','ieron',
+         'iendo'].forEach(s => add(stem+s, v));
+        add(stem+'ido', v); add(stem+'ida', v);
+        add(stem+'idos', v); add(stem+'idas', v);
+      }
+    }
+  }
+
+  return map;
+}
+
+function makeTip(surface, v) {
+  const safeEe = v.ee.replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return `<span class="vw" data-id="${v.id}">${surface}<span class="tip"><span class="tip-word">${v.w}</span><span class="tip-mean">${v.m}</span><span class="tip-ex">${safeEe}</span></span></span>`;
+}
+
+function annotateText(text, vocab) {
+  const lookup = buildVocabLookup(vocab);
+  const exprs = vocab.filter(v => v.t === 'expr')
+    .sort((a,b) => b.w.split(' ').length - a.w.split(' ').length);
+
+  const placeholders = [];
+  let working = text;
+
+  // First pass: replace multi-word expressions with placeholders
+  for (const expr of exprs) {
+    let pattern = expr.w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    // Convert escaped ... to a flex match
+    pattern = pattern.replace(/\\\.\\\.\\\./g, '.+?');
+    try {
+      const re = new RegExp('(?<![a-záéíóúüñA-ZÁÉÍÓÚÜÑ])' + pattern + '(?![a-záéíóúüñA-ZÁÉÍÓÚÜÑ])', 'gi');
+      working = working.replace(re, match => {
+        const idx = placeholders.length;
+        placeholders.push(makeTip(match, expr));
+        return '\x00' + idx + '\x01';
+      });
+    } catch(e) {}
+  }
+
+  // HTML-escape the remaining text (placeholders survive unharmed)
+  working = working.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  // Second pass: annotate individual words
+  working = working.replace(/[a-záéíóúüñA-ZÁÉÍÓÚÜÑ]+/g, word => {
+    // skip placeholder markers
+    if (word === '') return word;
+    const key = normW(word.toLowerCase());
+    if (lookup.has(key)) return makeTip(word, lookup.get(key));
+    return word;
+  });
+
+  // Restore expression placeholders
+  working = working.replace(/\x00(\d+)\x01/g, (_, i) => placeholders[+i]);
+
+  return working;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PASSAGE LOADING
+// ═══════════════════════════════════════════════════════════════
+function initPassageSel() {
+  document.getElementById('passage-sel').innerHTML = PASSAGES.map(p =>
+    `<option value="${p.meta.id}">[${p.meta.level}] ${p.meta.title} · ${p.meta.topic}</option>`
+  ).join('');
+}
+
+function loadPassage(id) {
+  currentPassage = PASSAGES.find(p => p.meta.id === id) || PASSAGES[0];
+  document.getElementById('passage-sel').value = currentPassage.meta.id;
+  renderReading();
+  updateFilterRow();
+  renderVocab('all');
+}
+
+function renderReading() {
+  const p = currentPassage;
+
+  const paragraphs = p.paragraphs_es.map((es, i) => {
+    const ko = p.paragraphs_ko[i] || '';
+    const annotated = annotateText(es, p.vocab);
+    return `<p>${annotated}</p><div class="kr-p">${ko}</div>`;
+  }).join('\n');
+
+  document.getElementById('pane-reading').innerHTML = `
+    <button class="trans-btn" id="trans-btn" onclick="toggleTrans()">🇰🇷 한국어 해석 보기</button>
+    <div class="reading-wrap">
+      <div class="passage">
+        <h2>${p.meta.title}</h2>
+        ${paragraphs}
+      </div>
+      <div class="notepad">
+        <div class="notepad-head">
+          <span class="notepad-title">📝 메모장</span>
+          <button class="notepad-clear" onclick="clearNotes()">전체 지우기</button>
+        </div>
+        <textarea id="notepad-ta" placeholder="여기에 메모를 작성하세요&#10;&#10;예) 외울 단어, 문장 분석, 궁금한 점..." oninput="saveNotes()"></textarea>
+      </div>
+    </div>`;
+
+  const saved = localStorage.getItem('es-notes-' + p.meta.id);
+  document.getElementById('notepad-ta').value = saved || '';
+}
+
+function updateFilterRow() {
+  const V = currentPassage.vocab;
+  const c = V.reduce((acc, v) => { acc[v.t] = (acc[v.t]||0)+1; return acc; }, {});
+  document.getElementById('filter-row').innerHTML = `
+    <button class="fbtn all on" onclick="filterV('all',this)">전체 ${V.length}</button>
+    <button class="fbtn noun" onclick="filterV('noun',this)">명사 ${c.noun||0}</button>
+    <button class="fbtn adj"  onclick="filterV('adj',this)">형용사 ${c.adj||0}</button>
+    <button class="fbtn verb" onclick="filterV('verb',this)">동사 ${c.verb||0}</button>
+    <button class="fbtn expr" onclick="filterV('expr',this)">표현 ${c.expr||0}</button>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
 // UTILS
 // ═══════════════════════════════════════════════════════════════
-function shuffle(a){
+function shuffle(a) {
   const b=[...a];
   for(let i=b.length-1;i>0;i--){const j=0|Math.random()*(i+1);[b[i],b[j]]=[b[j],b[i]];}
   return b;
@@ -418,7 +442,7 @@ function switchTab(name, btn){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('pane-'+name).classList.add('active');
   btn.classList.add('active');
-  if(name==='vocab') renderVocab('all');
+  if(name==='vocab') { updateFilterRow(); renderVocab('all'); }
   if(name==='flash') initFC();
   if(name==='quiz')  startQuiz();
 }
@@ -429,7 +453,6 @@ function switchTab(name, btn){
 document.addEventListener('click', e=>{
   const vw = e.target.closest('.vw');
   if(vw){
-    // close others
     document.querySelectorAll('.vw.open').forEach(el=>{ if(el!==vw) el.classList.remove('open'); });
     vw.classList.toggle('open');
     e.stopPropagation();
@@ -448,6 +471,7 @@ function filterV(type, btn){
 }
 
 function renderVocab(type){
+  const V = currentPassage.vocab;
   const list = type==='all' ? V : V.filter(v=>v.t===type);
   document.getElementById('vgrid').innerHTML = list.map(v=>`
     <div class="vc ${v.t}" onclick="toggleVC(this)">
@@ -458,8 +482,8 @@ function renderVocab(type){
       <div class="vc-body">
         <div class="vc-row"><span class="vc-ites">${v.ee}</span></div>
         <div class="vc-row vc-ko">${v.ek}</div>
-        ${v.ant!=='-'?`<div class="vc-row"><b>반대말</b>${v.ant}</div>`:''}
-        ${v.frm!=='-'?`<div class="vc-row"><b>활용형</b>${v.frm}</div>`:''}
+        ${v.ant && v.ant!=='-' && !v.ant.startsWith('(')?`<div class="vc-row"><b>반대말</b>${v.ant}</div>`:''}
+        ${v.frm && v.frm!=='-'?`<div class="vc-row"><b>활용형</b>${v.frm}</div>`:''}
       </div>
     </div>`).join('');
 }
@@ -472,6 +496,7 @@ function toggleVC(el){ el.querySelector('.vc-body').classList.toggle('open'); }
 let fcDeck=[], fcIdx=0, fcKnown=0, fcFlipped=false;
 
 function initFC(){
+  const V = currentPassage.vocab;
   const type=document.getElementById('fc-type').value;
   fcDeck = shuffle(type==='all'?[...V]:V.filter(v=>v.t===type));
   fcIdx=0; fcKnown=0; fcFlipped=false;
@@ -525,6 +550,7 @@ function fcAns(know){
 let qQs=[], qCur=0, qScore=0;
 
 function startQuiz(){
+  const V = currentPassage.vocab;
   qQs=shuffle([...V]).slice(0,10);
   qCur=0; qScore=0;
   document.getElementById('q-summary').classList.remove('show');
@@ -539,7 +565,7 @@ function showQ(){
   const ek=Math.random()>.5;
   const qText=ek?q.w:q.m;
   const correct=ek?q.m:q.w;
-  const pool=shuffle(V.filter(v=>v.id!==q.id)).slice(0,3).map(v=>ek?v.m:v.w);
+  const pool=shuffle(currentPassage.vocab.filter(v=>v.id!==q.id)).slice(0,3).map(v=>ek?v.m:v.w);
   const opts=shuffle([correct,...pool]);
   wrap.innerHTML=`
     <div class="q-box" data-correct="${correct.replace(/"/g,'&quot;')}">
@@ -565,8 +591,7 @@ function checkQ(btn){
   const fb=document.getElementById('q-fb');
   const nxt=document.getElementById('q-next');
   if(sel===correct){
-    btn.classList.add('correct');
-    qScore++;
+    btn.classList.add('correct'); qScore++;
     fb.textContent='✓ 정답입니다!';
     fb.className='q-fb show c';
   } else {
@@ -587,10 +612,9 @@ function showQSummary(){
   document.getElementById('qs-msg').textContent=msgs[Math.min(qScore,6)];
 }
 
-// ─── Init ───
-renderVocab('all');
-
-// ── TRANSLATION TOGGLE ──
+// ═══════════════════════════════════════════════════════════════
+// TRANSLATION TOGGLE
+// ═══════════════════════════════════════════════════════════════
 function toggleTrans(){
   const btn=document.getElementById('trans-btn');
   const isOn=btn.classList.toggle('on');
@@ -598,13 +622,24 @@ function toggleTrans(){
   btn.textContent=isOn?'🇰🇷 한국어 해석 숨기기':'🇰🇷 한국어 해석 보기';
 }
 
-// ── NOTEPAD ──
-(function loadNotes(){
-  const saved=localStorage.getItem('es-notes');
-  if(saved) document.getElementById('notepad-ta').value=saved;
-})();
-function saveNotes(){localStorage.setItem('es-notes',document.getElementById('notepad-ta').value);}
-function clearNotes(){if(confirm('메모를 모두 지울까요?')){document.getElementById('notepad-ta').value='';localStorage.removeItem('es-notes');}}
+// ═══════════════════════════════════════════════════════════════
+// NOTEPAD
+// ═══════════════════════════════════════════════════════════════
+function saveNotes(){
+  localStorage.setItem('es-notes-'+currentPassage.meta.id, document.getElementById('notepad-ta').value);
+}
+function clearNotes(){
+  if(confirm('메모를 모두 지울까요?')){
+    document.getElementById('notepad-ta').value='';
+    localStorage.removeItem('es-notes-'+currentPassage.meta.id);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+initPassageSel();
+loadPassage(PASSAGES[0].meta.id);
 </script>
 </body>
 </html>
