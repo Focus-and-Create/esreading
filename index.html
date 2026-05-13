@@ -126,6 +126,91 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#2d3748;min-heig
   .passage{padding:20px}
 }
 
+/* ── STRAWBERRY TIMER WIDGET ── */
+#berry-widget{
+  position:fixed;bottom:28px;right:28px;z-index:9999;
+  user-select:none;touch-action:none;
+  filter:drop-shadow(0 6px 18px rgba(0,0,0,.28));
+  transition:filter .2s;
+}
+#berry-widget:hover{filter:drop-shadow(0 8px 22px rgba(0,0,0,.36));}
+#berry-widget.dragging{cursor:grabbing;filter:drop-shadow(0 12px 28px rgba(0,0,0,.42));}
+
+#berry-svg{display:block;}
+
+#berry-overlay{
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  display:flex;flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding-top:30px; /* offset for leaves */
+  pointer-events:none;
+}
+#berry-time{
+  font-size:26px;font-weight:900;
+  color:#fff;
+  text-shadow:0 1px 5px rgba(0,0,0,.55);
+  letter-spacing:1px;
+  line-height:1;
+}
+#berry-mode-label{
+  font-size:9px;font-weight:700;
+  color:rgba(255,255,255,.9);
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  margin-top:3px;
+}
+#berry-controls{
+  position:absolute;
+  bottom:20px;left:0;right:0;
+  display:flex;justify-content:center;gap:10px;
+}
+.berry-btn{
+  width:30px;height:30px;border-radius:50%;border:none;
+  background:rgba(255,255,255,.92);
+  cursor:pointer;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.2);
+  transition:transform .12s,background .15s;
+  pointer-events:all;
+}
+.berry-btn:hover{transform:scale(1.15);background:#fff;}
+.berry-btn:active{transform:scale(.95);}
+#berry-mode-toggle{
+  position:absolute;top:4px;left:50%;transform:translateX(-50%);
+  font-size:9px;padding:2px 8px;border-radius:10px;border:none;
+  background:rgba(255,255,255,.75);color:#6d1a1a;
+  cursor:pointer;font-weight:700;letter-spacing:.5px;
+  pointer-events:all;
+  transition:background .15s;
+}
+#berry-mode-toggle:hover{background:rgba(255,255,255,.95);}
+#berry-collapse{
+  position:absolute;top:-8px;right:-8px;
+  width:22px;height:22px;border-radius:50%;border:none;
+  background:#fff;color:#c62828;
+  font-size:11px;font-weight:700;
+  cursor:pointer;
+  box-shadow:0 2px 6px rgba(0,0,0,.22);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .12s;
+  z-index:1;
+}
+#berry-collapse:hover{transform:scale(1.15);}
+#berry-widget.collapsed #berry-overlay,
+#berry-widget.collapsed #berry-controls,
+#berry-widget.collapsed #berry-mode-toggle{opacity:.3;pointer-events:none;}
+#berry-widget.collapsed #berry-svg{opacity:.6;}
+
+/* pulse ring when running */
+@keyframes berry-pulse{
+  0%{r:62;opacity:.4;}
+  100%{r:72;opacity:0;}
+}
+#berry-pulse-ring{display:none;}
+#berry-widget.running #berry-pulse-ring{display:block;}
+
 /* ── READING LAYOUT ── */
 .reading-wrap{display:grid;grid-template-columns:1fr 310px;gap:20px;align-items:start}
 @media(max-width:820px){.reading-wrap{grid-template-columns:1fr}}
@@ -224,6 +309,62 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#2d3748;min-heig
     <div class="qs-of">/ 10 정답</div>
     <div class="qs-msg" id="qs-msg"></div>
     <button class="qs-restart" onclick="startQuiz()">다시 풀기</button>
+  </div>
+</div>
+
+<!-- ── STRAWBERRY TIMER WIDGET ── -->
+<div id="berry-widget">
+  <button id="berry-collapse" title="접기/펼치기">–</button>
+  <button id="berry-mode-toggle" onclick="berryNextMode()">🍅 집중</button>
+  <svg id="berry-svg" viewBox="0 0 120 148" width="138" height="170">
+    <!-- pulse ring (visible when running) -->
+    <circle id="berry-pulse-ring" cx="60" cy="90" r="62" fill="none" stroke="rgba(255,100,100,.5)" stroke-width="3">
+      <animate attributeName="r" from="60" to="74" dur="1.2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" from=".5" to="0" dur="1.2s" repeatCount="indefinite"/>
+    </circle>
+    <!-- Calyx (leaves) -->
+    <ellipse cx="60" cy="24" rx="11" ry="20" fill="#43a047" transform="rotate(-38 60 24)" opacity=".9"/>
+    <ellipse cx="60" cy="24" rx="11" ry="20" fill="#66bb6a" transform="rotate(-15 60 24)"/>
+    <ellipse cx="60" cy="24" rx="11" ry="20" fill="#43a047" transform="rotate(15 60 24)"/>
+    <ellipse cx="60" cy="24" rx="11" ry="20" fill="#66bb6a" transform="rotate(38 60 24)" opacity=".9"/>
+    <!-- Center nub -->
+    <ellipse cx="60" cy="17" rx="5" ry="9" fill="#81c784"/>
+    <!-- Strawberry body -->
+    <path id="berry-body" d="M60,32 C38,32 17,44 15,66 C12,90 28,116 50,131 C54,134 57,136 60,136 C63,136 66,134 70,131 C92,116 108,90 105,66 C103,44 82,32 60,32 Z" fill="#e53935"/>
+    <!-- Highlight -->
+    <ellipse cx="40" cy="55" rx="9" ry="14" fill="rgba(255,255,255,.12)" transform="rotate(-20 40 55)"/>
+    <!-- Seeds row 1 -->
+    <ellipse cx="44" cy="57" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(-12 44 57)"/>
+    <ellipse cx="60" cy="54" rx="2.2" ry="3.2" fill="#b71c1c"/>
+    <ellipse cx="76" cy="57" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(12 76 57)"/>
+    <!-- Seeds row 2 -->
+    <ellipse cx="37" cy="72" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(-18 37 72)"/>
+    <ellipse cx="52" cy="69" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(-6 52 69)"/>
+    <ellipse cx="68" cy="69" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(6 68 69)"/>
+    <ellipse cx="83" cy="72" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(18 83 72)"/>
+    <!-- Seeds row 3 -->
+    <ellipse cx="34" cy="87" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(-22 34 87)"/>
+    <ellipse cx="49" cy="84" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(-8 49 84)"/>
+    <ellipse cx="60" cy="83" rx="2.2" ry="3.2" fill="#b71c1c"/>
+    <ellipse cx="71" cy="84" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(8 71 84)"/>
+    <ellipse cx="86" cy="87" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(22 86 87)"/>
+    <!-- Seeds row 4 -->
+    <ellipse cx="39" cy="101" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(-16 39 101)"/>
+    <ellipse cx="52" cy="99" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(-5 52 99)"/>
+    <ellipse cx="68" cy="99" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(5 68 99)"/>
+    <ellipse cx="81" cy="101" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(16 81 101)"/>
+    <!-- Seeds row 5 -->
+    <ellipse cx="49" cy="114" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(-10 49 114)"/>
+    <ellipse cx="60" cy="113" rx="2.2" ry="3.2" fill="#b71c1c"/>
+    <ellipse cx="71" cy="114" rx="2.2" ry="3.2" fill="#b71c1c" transform="rotate(10 71 114)"/>
+  </svg>
+  <div id="berry-overlay">
+    <div id="berry-time">25:00</div>
+    <div id="berry-mode-label">집중</div>
+  </div>
+  <div id="berry-controls">
+    <button class="berry-btn" id="berry-start-btn" onclick="berryToggle()" title="시작/일시정지">▶</button>
+    <button class="berry-btn" onclick="berryReset()" title="초기화">↺</button>
   </div>
 </div>
 
@@ -640,6 +781,175 @@ function clearNotes(){
 // ═══════════════════════════════════════════════════════════════
 initPassageSel();
 loadPassage(PASSAGES[0].meta.id);
+
+// ═══════════════════════════════════════════════════════════════
+// STRAWBERRY TIMER WIDGET
+// ═══════════════════════════════════════════════════════════════
+(function(){
+  const MODES = [
+    {key:'focus', label:'집중', emoji:'🍅', secs:25*60, color:'#e53935'},
+    {key:'short', label:'짧은 휴식', emoji:'☕', secs:5*60,  color:'#43a047'},
+    {key:'long',  label:'긴 휴식',  emoji:'🌿', secs:15*60, color:'#1976d2'},
+  ];
+  let modeIdx = 0;
+  let remaining = MODES[0].secs;
+  let running = false;
+  let timerId = null;
+
+  const widget    = document.getElementById('berry-widget');
+  const timeEl    = document.getElementById('berry-time');
+  const labelEl   = document.getElementById('berry-mode-label');
+  const startBtn  = document.getElementById('berry-start-btn');
+  const modeToggle= document.getElementById('berry-mode-toggle');
+  const collapseBtn = document.getElementById('berry-collapse');
+  const body      = document.getElementById('berry-body');
+
+  function fmt(s){
+    const m = String(Math.floor(s/60)).padStart(2,'0');
+    const sec = String(s%60).padStart(2,'0');
+    return m+':'+sec;
+  }
+
+  function applyMode(){
+    const m = MODES[modeIdx];
+    remaining = m.secs;
+    running = false;
+    clearInterval(timerId);
+    widget.classList.remove('running');
+    startBtn.textContent = '▶';
+    timeEl.textContent = fmt(remaining);
+    labelEl.textContent = m.label;
+    modeToggle.textContent = m.emoji + ' ' + m.label;
+    body.setAttribute('fill', m.color);
+    document.title = fmt(remaining) + ' — ' + m.label;
+  }
+
+  function tick(){
+    if(remaining <= 0){
+      clearInterval(timerId);
+      running = false;
+      widget.classList.remove('running');
+      startBtn.textContent = '▶';
+      timeEl.textContent = '00:00';
+      document.title = '완료! — ' + MODES[modeIdx].label;
+      if(Notification.permission === 'granted'){
+        new Notification('🍓 타이머 완료!', {body: MODES[modeIdx].label + ' 완료!'});
+      }
+      // Auto-advance to next mode
+      setTimeout(()=>{ modeIdx=(modeIdx+1)%MODES.length; applyMode(); }, 1500);
+      return;
+    }
+    remaining--;
+    timeEl.textContent = fmt(remaining);
+    document.title = fmt(remaining) + ' — ' + MODES[modeIdx].label;
+  }
+
+  window.berryToggle = function(){
+    if(running){
+      clearInterval(timerId);
+      running = false;
+      widget.classList.remove('running');
+      startBtn.textContent = '▶';
+    } else {
+      if(Notification.permission === 'default') Notification.requestPermission();
+      running = true;
+      widget.classList.add('running');
+      startBtn.textContent = '⏸';
+      timerId = setInterval(tick, 1000);
+    }
+  };
+
+  window.berryReset = function(){
+    clearInterval(timerId);
+    running = false;
+    widget.classList.remove('running');
+    startBtn.textContent = '▶';
+    remaining = MODES[modeIdx].secs;
+    timeEl.textContent = fmt(remaining);
+    document.title = fmt(remaining) + ' — ' + MODES[modeIdx].label;
+  };
+
+  window.berryNextMode = function(){
+    modeIdx = (modeIdx + 1) % MODES.length;
+    applyMode();
+  };
+
+  // Collapse toggle
+  let collapsed = false;
+  collapseBtn.addEventListener('click', ()=>{
+    collapsed = !collapsed;
+    widget.classList.toggle('collapsed', collapsed);
+    collapseBtn.textContent = collapsed ? '+' : '–';
+  });
+
+  // ── Drag logic ──
+  let dragStartX=0, dragStartY=0, widgetStartX=0, widgetStartY=0, isDragging=false;
+
+  widget.addEventListener('mousedown', e=>{
+    if(e.target.tagName === 'BUTTON') return;
+    isDragging = true;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    const rect = widget.getBoundingClientRect();
+    widgetStartX = rect.left;
+    widgetStartY = rect.top;
+    widget.classList.add('dragging');
+    widget.style.right = 'auto';
+    widget.style.bottom = 'auto';
+    widget.style.left = widgetStartX + 'px';
+    widget.style.top  = widgetStartY + 'px';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e=>{
+    if(!isDragging) return;
+    const dx = e.clientX - dragStartX;
+    const dy = e.clientY - dragStartY;
+    const nx = widgetStartX + dx;
+    const ny = widgetStartY + dy;
+    const maxX = window.innerWidth  - widget.offsetWidth;
+    const maxY = window.innerHeight - widget.offsetHeight;
+    widget.style.left = Math.max(0, Math.min(nx, maxX)) + 'px';
+    widget.style.top  = Math.max(0, Math.min(ny, maxY)) + 'px';
+  });
+
+  document.addEventListener('mouseup', ()=>{
+    if(isDragging){ isDragging=false; widget.classList.remove('dragging'); }
+  });
+
+  // Touch drag
+  widget.addEventListener('touchstart', e=>{
+    if(e.target.tagName === 'BUTTON') return;
+    const t = e.touches[0];
+    isDragging = true;
+    dragStartX = t.clientX;
+    dragStartY = t.clientY;
+    const rect = widget.getBoundingClientRect();
+    widgetStartX = rect.left;
+    widgetStartY = rect.top;
+    widget.style.right = 'auto';
+    widget.style.bottom = 'auto';
+    widget.style.left = widgetStartX + 'px';
+    widget.style.top  = widgetStartY + 'px';
+  }, {passive:true});
+
+  document.addEventListener('touchmove', e=>{
+    if(!isDragging) return;
+    const t = e.touches[0];
+    const dx = t.clientX - dragStartX;
+    const dy = t.clientY - dragStartY;
+    const nx = widgetStartX + dx;
+    const ny = widgetStartY + dy;
+    const maxX = window.innerWidth  - widget.offsetWidth;
+    const maxY = window.innerHeight - widget.offsetHeight;
+    widget.style.left = Math.max(0, Math.min(nx, maxX)) + 'px';
+    widget.style.top  = Math.max(0, Math.min(ny, maxY)) + 'px';
+  }, {passive:true});
+
+  document.addEventListener('touchend', ()=>{ isDragging = false; });
+
+  applyMode();
+})();
 </script>
 </body>
 </html>
